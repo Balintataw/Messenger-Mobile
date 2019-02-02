@@ -1,47 +1,35 @@
 import React from 'react'
 import {
-  View,
-  Text,
-  Button,
-  StyleSheet
+    View,
+    Text,
+    AsyncStorage,
+    TouchableOpacity
 } from 'react-native'
+import { withNavigation } from 'react-navigation';
 
 import { Auth } from 'aws-amplify';
 import styles from './styles';
 
-export default class Home extends React.Component {
-  static get options() {
-    return {
-      topBar: {
-        title: {
-          text: 'Home'
-        },
-      }
-    };
-  }
-  logout = async () => {
-    try {
-      await Auth.signOut()
-      // go to login Screen
-    } catch (err) {
-      console.log('error signing out...: ', err)
+class Logout extends React.Component {
+    logout = async () => {
+        try {
+            await Auth.signOut()
+            await AsyncStorage.clear();
+        } catch (err) {
+            console.log('error signing out...: ', err);
+        } finally {
+            this.props.navigation.navigate('AuthLoading');
+        }
     }
-  }
-  render() {
-    console.log('props; ', this.props)
-    return (
-      <View style={styles.container}>
-        <Button
-          onPress={this.logout}
-          title="Sign Out"
-        />
-        <Button
-          onPress={() => {
-              // redirect
-          }}
-          title="View next screen"
-        />
-      </View>
-    )
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <TouchableOpacity onPress={this.logout}>
+                    <Text>{this.props.title}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
 };
+
+export default withNavigation(Logout);

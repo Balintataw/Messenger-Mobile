@@ -20,6 +20,10 @@ export default class SignIn extends React.Component {
         authenticationCode: '', 
         showConfirmationForm: false
     }
+    componentDidMount = async () => {
+        // const token = await AsyncStorage.getItem(config.USER_TOKEN)
+        // alert('still got ya ' + token) 
+    }
     onChangeText = (key, value) => {
         this.setState({ [key]: value })
     }

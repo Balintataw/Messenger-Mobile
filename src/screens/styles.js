@@ -5,7 +5,7 @@ const screenWidth = Dimensions.get('window').width;
 
 export default EStyleSheet.create({
     container: {
-        height: 100+'%',
+        // height: 100+'%',
         width: screenWidth,
         display: 'flex',
         flex: 1,

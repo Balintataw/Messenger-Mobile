@@ -1,42 +1,40 @@
+import React from 'react';
 import { StatusBar } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 
-import Home from '../screens/Home';
-import Auth from '../screens/Auth';
-import SignUp from '../screens/SignUp';
+import AuthLoadingScreen from '../screens/AuthLoadingScreen'
+import SignUp            from '../screens/SignUp';
+import Home              from '../screens/Home';
+import Auth              from '../screens/Auth';
 
-const HomeStack = createStackNavigator(
+import { Header } from '../components/Header';
+
+import config from '../config';
+
+const AppStack = createStackNavigator(
     {
         Home: {
             screen: Home,
-            navigationOptions: {
-                header: () => null
-            }
+            navigationOptions: ({navigation}) => ({
+                // header: () => null,
+                    // headerTitle: navigation.state.params.title
+                // headerTitle: 'Home'
+                headerTitle: <Header title="Logout" />,
+            })
         },
-        // Options: {
-        //     screen: Options,
-        //     navigationOptions: ({ navigation }) => ({
-        //         headerTitle: navigation.state.params.title
-        //     }),
-        // },
-        // Themes: {
-        //     screen: Themes,
-        //     navigationOptions: ({ navigation }) => ({
-        //         headerTitle: navigation.state.params.title
-        //     }),
-        // }
     }, 
     {
-//        mode: 'modal',
-//        cardStyle: { paddingTop: StatusBar.currentHeight }
-        headerMode: 'screen',
+        mode: 'modal',
+        // cardStyle: { paddingTop: StatusBar.currentHeight },
+        // headerMode: 'screen',
         defaultNavigationOptions: {
-            headerTitleStyle: {
-                flex: 1,
-                textAlign: 'left'
-            },
+        //     headerTitleStyle: {
+        //         flex: 1,
+        //         textAlign: 'left'
+        //     },
             headerStyle: {
-//                backgroundColor: '#F4511E'
+               backgroundColor: '#F4511E',
+        //        marginTop: StatusBar.currentHeight
             }
         }
     }
@@ -47,7 +45,7 @@ const AuthStack = createStackNavigator(
         Auth: {
             screen: Auth,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: 'Login/Sign Up'
+                headerTitle: <Header title="Welcome" />,
             }),
         },
         SignUp: {
@@ -60,35 +58,36 @@ const AuthStack = createStackNavigator(
     {
         defaultNavigationOptions: {
             mode: 'modal',
-            headerMode: 'none',
-            headerTitleStyle: {
-                flex: 1,
-                textAlign: 'left'
-            },
+            // headerMode: 'none',
+            headerStyle: {
+               backgroundColor: '#F4511E',
+            }
         }
     }
 )
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createSwitchNavigator(
     {
+        AuthLoading: AuthLoadingScreen,
         Auth: {
             screen: AuthStack,
         },
-        Home: {
-            screen: HomeStack,
+        App: {
+            screen: AppStack,
         },
     }, 
     {
         mode: 'modal',
-        headerMode: 'none',
-//        cardStyle: { paddingTop: StatusBar.currentHeight },
+        // headerMode: 'none',
+        initialRouteName: 'AuthLoading',
+        // cardStyle: { paddingTop: StatusBar.currentHeight },
         defaultNavigationOptions: {
             headerTitleStyle: {
                 flex: 1,
-                textAlign: 'left'
+                // textAlign: 'left'
             },
             headerStyle: {
-//                backgroundColor: '#F4511E'
+               backgroundColor: '#F4511E',
             }
         }
     }
