@@ -32,6 +32,30 @@ router.get('/:resource', function(req, res, next) {
             message: 'Hey Biff',
             dateTime: new Date()
         },
+        {
+            toUser: 'Biff',
+            fromUser: 'Siopao',
+            message: 'Hey Biff',
+            dateTime: new Date()
+        },
+        {
+            toUser: 'Biff',
+            fromUser: 'Siopao',
+            message: 'Hey Biff',
+            dateTime: new Date()
+        },
+        {
+            toUser: 'Biff',
+            fromUser: 'Siopao',
+            message: 'Hey Biff',
+            dateTime: new Date()
+        },
+        {
+            toUser: 'Biff',
+            fromUser: 'Siopao',
+            message: 'Hey Biff',
+            dateTime: new Date()
+        },
     ];
     res.json({
         status: 'success',

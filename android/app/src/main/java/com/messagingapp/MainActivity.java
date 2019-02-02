@@ -1,6 +1,11 @@
 package com.messagingapp;
 
 import com.facebook.react.ReactActivity;
+/* required to react native gesture handler */
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+/* end requirements */
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +16,15 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "messagingApp";
+    }
+    // required for react native gesture handler
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+        return new ReactActivityDelegate(this, getMainComponentName()) {
+            @Override
+            protected ReactRootView createRootView() {
+                return new RNGestureHandlerEnabledRootView(MainActivity.this);
+            }
+        };
     }
 }

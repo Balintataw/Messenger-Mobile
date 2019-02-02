@@ -1,0 +1,11 @@
+{
+    "appName": "messagingapp",
+    "roleName": "pinpointLambdaRoleda8d768b",
+    "cloudWatchPolicyName": "cloudWatchPolicyda8d768b",
+    "pinpointPolicyName": "pinpointPolicyda8d768b",
+    "authPolicyName": "pinpoint_amplify_da8d768b",
+    "unauthPolicyName": "pinpoint_amplify_da8d768b",
+    "authRoleName": "messagingpp-20190202095441-authRole",
+    "unauthRoleName": "messagingpp-20190202095441-unauthRole",
+    "IAMPrefix": "049306620118"
+}

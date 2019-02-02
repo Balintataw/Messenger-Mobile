@@ -1,0 +1,16 @@
+{
+    "identityPoolName": "messagingapp_identitypool_082ee33e",
+    "allowUnauthenticatedIdentities": true,
+    "thirdPartyAuth": false,
+    "lambdaLogPolicy": "messagingapp_lambda_log_policy",
+    "openIdLambdaRoleName": "messagingapp_openid_lambda_role",
+    "openIdRolePolicy": "messagingapp_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "messagingapp_openid_lambda_iam_policy",
+    "openIdLogPolicy": "messagingapp_openid_lambda_log_policy",
+    "authSelections": "identityPoolOnly",
+    "resourceName": "cognitoe1e351cf",
+    "unAuthRoleName": "messagingpp-20190202095441-unauthRole",
+    "authRoleName": "messagingpp-20190202095441-authRole",
+    "unAuthRoleArn": "arn:aws:iam::049306620118:role/messagingpp-20190202095441-unauthRole",
+    "authRoleArn": "arn:aws:iam::049306620118:role/messagingpp-20190202095441-authRole"
+}

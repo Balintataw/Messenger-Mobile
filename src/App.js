@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { Home } from './screens';
+import { Home, Login, SignUp } from './screens';
+import Navigator from './routes/routes';
 
 import { styles } from './screens'
+
+import Amplify from 'aws-amplify'
+import AWSconfig from './aws-exports'
+Amplify.configure(AWSconfig)
 
 EStyleSheet.build({
     $primary: '#4F6D7A',
@@ -21,9 +26,7 @@ EStyleSheet.build({
 class App extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Home />
-            </View>
+            <Navigator onNavigationStateChange={null} />
         )
     }
 }

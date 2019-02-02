@@ -1,0 +1,47 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "messagingpp-20190202095441-authRole",
+			"UnauthRoleArn": "arn:aws:iam::049306620118:role/messagingpp-20190202095441-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::049306620118:role/messagingpp-20190202095441-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "messagingpp-20190202095441-deployment",
+			"UnauthRoleName": "messagingpp-20190202095441-unauthRole",
+			"StackName": "messagingpp-20190202095441",
+			"StackId": "arn:aws:cloudformation:us-west-2:049306620118:stack/messagingpp-20190202095441/9e43dbe0-2713-11e9-a6f3-0293ffedadac"
+		}
+	},
+	"auth": {
+		"cognitoe1e351cf": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/messagingpp-20190202095441-deployment/amplify-cfn-templates/auth/cognitoe1e351cf-cloudformation-template.yml",
+				"logicalId": "authcognitoe1e351cf"
+			},
+			"lastPushTimeStamp": "2019-02-02T17:57:25.307Z",
+			"output": {
+				"IdentityPoolId": "us-west-2:d780ab45-67d7-4077-9e1a-44acbe5a0bd9",
+				"IdentityPoolName": "messagingapp_identitypool_082ee33e"
+			},
+			"lastPushDirHash": "WIbi7kEssTix2V1jtNX3aQJaezM="
+		}
+	},
+	"analytics": {
+		"messagingapp": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/messagingpp-20190202095441-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"logicalId": "analyticsmessagingapp"
+			},
+			"lastPushTimeStamp": "2019-02-02T17:57:25.307Z",
+			"output": {
+				"appName": "messagingapp",
+				"Region": "us-west-2",
+				"Id": "bb7806c3280748d6bf3704eaa2c1c55c"
+			},
+			"lastPushDirHash": "Wdgphj6IuyyXdx3R0ul0poGutsk="
+		}
+	}
+}

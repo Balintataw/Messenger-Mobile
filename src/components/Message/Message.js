@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+import moment from 'moment';
+
+import styles from './styles'
 
 const Message = props => {
     return (
-        <View>
-            <Text>
-                {props.message}
-            </Text>
+        <View style={[styles.message, props.last ? {borderBottomWidth:StyleSheet.hairlineWidth} : null]}>
+            <Text>To: {props.toUser}</Text>
+            <Text>From: {props.fromUser}</Text>
+            <Text>Message: {props.message}</Text>
+            <Text>At: {moment(props.dateTime).format()}</Text>
         </View>
     )
 };
