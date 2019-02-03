@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:resource', function(req, res, next) {
+    console.log('REQUEST', req.body)
     const messages = [
         {
             toUser: 'Biff',

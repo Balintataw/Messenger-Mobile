@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { Message } from '../components/Message';
@@ -13,14 +14,9 @@ class Home extends Component {
         messages: []
     };
     componentDidMount = () => {
-        axios.get(`${config.BASE_URL}/api/message`, {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-type': 'application/json'
-                }
-            })
+        axios.get(`${config.BASE_URL}/api/message`, { user: this.props.user })
             .then(resp => {
-                console.log(resp.data.data)
+                // console.log(resp.data.data)
                 this.setState({ 
                     messages: resp.data.data,
                     showLoading: false
@@ -45,4 +41,11 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    console.log('STATE HOME', state)
+    return {
+        user: state.user.user
+    }
+}
+
+export default connect(mapStateToProps)(Home);

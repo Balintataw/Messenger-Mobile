@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Provider } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { Home, Login, SignUp } from './screens';
 import Navigator from './routes/routes';
 
-import { styles } from './screens'
+import store from './store';
 
 import Amplify from 'aws-amplify'
 import AWSconfig from './aws-exports'
@@ -26,7 +25,9 @@ EStyleSheet.build({
 class App extends Component {
     render() {
         return (
-            <Navigator onNavigationStateChange={null} />
+            <Provider store={store}>
+                <Navigator onNavigationStateChange={null} />
+            </Provider>
         )
     }
 }

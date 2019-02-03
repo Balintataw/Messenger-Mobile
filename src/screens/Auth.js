@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,15 @@ import {
   TextInput,
   Button,
   AsyncStorage
-} from 'react-native'
+} from 'react-native';
+import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 
+import { setUser } from '../actions/users';
 import config from '../config';
 import styles from './styles';
 
-export default class SignIn extends React.Component {
+class Authentication extends React.Component {
     state = {
         username: '', 
         password: '', 
@@ -27,21 +29,30 @@ export default class SignIn extends React.Component {
     onChangeText = (key, value) => {
         this.setState({ [key]: value })
     }
+    createUserId = () => {
+        var r = (new Date()).getTime().toString(16) + 
+            Math.random().toString(16).substring(2) + "0".repeat(16);
+        return 'user-' + r.substr(0,8) + '-' + r.substr(8,4) + '-4000-8' + 
+            r.substr(12,3) + '-' + r.substr(15,12);
+    }
     signIn = async () => {
         const { username, password } = this.state
         try {
             const user = await Auth.signIn(username, password)
             console.log('user successfully signed in!', user)
+            const sessionUser = await Auth.currentUserInfo();
+            sessionUser.id = this.createUserId();
+            console.log("SESSION USER", sessionUser)
+            this.props.setUser(sessionUser);
             return AsyncStorage.setItem(config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
-       // why require confirmation on signIn?
-       // so redirect instead of confirm here
-    //    this.setState({ user, showConfirmationForm: true })
+        // why require confirmation on signIn?
+        // so redirect instead of confirm here
+        // this.setState({ user, showConfirmationForm: true })
         } catch (err) {
             alert("Sorry: \n" + err)
             console.log('error:', err)
         } finally {
             const token = await AsyncStorage.getItem(config.USER_TOKEN)
-            console.log('token', token) 
             this.props.navigation.navigate('Home');
         }
     }
@@ -108,4 +119,10 @@ export default class SignIn extends React.Component {
         </View>
         )
     }
+};
+
+const mapDispatchToProps = {
+    setUser
 }
+
+export default connect(null, mapDispatchToProps)(Authentication);
