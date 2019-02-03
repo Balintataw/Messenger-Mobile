@@ -16,91 +16,98 @@ const initialState = {
 }
 
 export default class SignUp extends React.Component {
-  state = initialState
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val })
-  }
-  signUp = async () => {
-    const { username, password, email } = this.state
-    try {
-      const success = await Auth.signUp({ username, password, attributes: { email }})
-      console.log('user successfully signed up!: ', success)
-      this.setState({ showConfirmationForm: true })
-    } catch (err) {
-      console.log('error signing up: ', err)
+    state = initialState
+    onChangeText = (key, val) => {
+        this.setState({ [key]: val })
     }
-  }
-  confirmSignUp = async () => {
-    const { username, authenticationCode } = this.state
-    try {
-      await Auth.confirmSignUp(username, authenticationCode)
-      console.log('successully signed up!')
-      alert('User signed up successfully!')
-      this.setState({ ...initialState })
-    } catch (err) {
-      console.log('error confirming signing up: ', err)
+    createUserId = () => {
+        var r = (new Date()).getTime().toString(16) + 
+            Math.random().toString(16).substring(2) + "0".repeat(16);
+        return 'user-' + r.substr(0,8) + '-' + r.substr(8,4) + '-4000-8' + 
+            r.substr(12,3) + '-' + r.substr(15,12);
+        }
+    signUp = async () => {
+        const { username, password, email } = this.state
+        try {
+            const id = this.createUserId();
+            const success = await Auth.signUp({ username, id, password, attributes: { email }})
+            console.log('user successfully signed up!: ', success)
+            this.setState({ showConfirmationForm: true })
+        } catch (err) {
+            console.log('error signing up: ', err)
+        } 
     }
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        {
-          !this.state.showConfirmationForm && (
-            <Fragment>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Username'
-                    autoCapitalize="none"
-                    placeholderTextColor='white'
-                    onChangeText={val => this.onChangeText('username', val)}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Password'
-                    secureTextEntry={true}
-                    autoCapitalize="none"
-                    placeholderTextColor='white'
-                    onChangeText={val => this.onChangeText('password', val)}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Email'
-                    autoCapitalize="none"
-                    placeholderTextColor='white'
-                    onChangeText={val => this.onChangeText('email', val)}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Phone Number'
-                    autoCapitalize="none"
-                    placeholderTextColor='white'
-                    onChangeText={val => this.onChangeText('phone_number', val)}
-                />
-                <Button
-                    title='Sign Up'
-                    onPress={this.signUp}
-                />
-            </Fragment>
-          )
+    confirmSignUp = async () => {
+        const { username, authenticationCode } = this.state
+        try {
+            await Auth.confirmSignUp(username, authenticationCode)
+            alert('User signed up successfully!')
+            this.setState({ ...initialState })
+            this.props.navigation.navigate('Home');
+        } catch (err) {
+            alert('error confirming signing up: \n' + err)
         }
-        {
-          this.state.showConfirmationForm && (
-            <Fragment>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Authentication code'
-                    autoCapitalize="none"
-                    placeholderTextColor='white'
-                    onChangeText={val => this.onChangeText('authenticationCode', val)}
-                />
-                <Button
-                    title='Confirm Sign Up'
-                    onPress={this.confirmSignUp}
-                />
-            </Fragment>
-          )
-        }
-      </View>
-    )
-  }
+    }
+    render() {
+        return (
+        <View style={styles.container}>
+            {
+            !this.state.showConfirmationForm && (
+                <Fragment>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Username'
+                        autoCapitalize="none"
+                        placeholderTextColor='white'
+                        onChangeText={val => this.onChangeText('username', val)}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Password'
+                        secureTextEntry={true}
+                        autoCapitalize="none"
+                        placeholderTextColor='white'
+                        onChangeText={val => this.onChangeText('password', val)}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Email'
+                        autoCapitalize="none"
+                        placeholderTextColor='white'
+                        onChangeText={val => this.onChangeText('email', val)}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Phone Number'
+                        autoCapitalize="none"
+                        placeholderTextColor='white'
+                        onChangeText={val => this.onChangeText('phone_number', val)}
+                    />
+                    <Button
+                        title='Sign Up'
+                        onPress={this.signUp}
+                    />
+                </Fragment>
+            )
+            }
+            {
+            this.state.showConfirmationForm && (
+                <Fragment>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Authentication code'
+                        autoCapitalize="none"
+                        placeholderTextColor='white'
+                        onChangeText={val => this.onChangeText('authenticationCode', val)}
+                    />
+                    <Button
+                        title='Confirm Sign Up'
+                        onPress={this.confirmSignUp}
+                    />
+                </Fragment>
+            )
+            }
+        </View>
+        )
+    }
 };

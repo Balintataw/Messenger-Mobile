@@ -45,7 +45,7 @@ const AuthStack = createStackNavigator(
         Auth: {
             screen: Auth,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: <Header title="Welcome" />,
+                headerTitle: <Header title="Sugo" />,
             }),
         },
         SignUp: {

@@ -6,13 +6,19 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/:resource', function(req, res, next) {
+router.post('/get_messages', function(req, res, next) {
     console.log('REQUEST', req.body)
     const messages = [
         {
-            toUser: 'Biff',
+            toUser: 'us-west-2:938ff5c2-550d-48c7-90ef-ffaf9c11d762',
             fromUser: 'Siopao',
             message: 'Hey Biff',
+            dateTime: new Date()
+        },
+        {
+            toUser: 'us-west-2:938ff5c2-550d-48c7-90ef-ffaf9c11d762',
+            fromUser: 'Admin',
+            message: 'Youre banned',
             dateTime: new Date()
         },
         {
@@ -51,13 +57,10 @@ router.get('/:resource', function(req, res, next) {
             message: 'Hey Biff',
             dateTime: new Date()
         },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-    ];
+    ].filter(message => {
+        return message.toUser == req.body.user.id
+    });
+    
     res.json({
         status: 'success',
         data: messages

@@ -27,7 +27,7 @@ class AuthLoadingScreen extends React.Component {
     // Render any loading content that you like here
     render() {
         return (
-        <View style={styles.container}>
+        <View style={styles.splashScreen}>
             <ActivityIndicator size="large" />
             <StatusBar barStyle="default" />
         </View>
