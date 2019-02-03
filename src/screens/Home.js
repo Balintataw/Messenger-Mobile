@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -14,14 +14,17 @@ class Home extends Component {
         messages: []
     };
     componentDidMount = () => {
-        console.log('USER', this.props.user)
-        axios.post(`${config.BASE_URL}/api/get_messages`, { user: this.props.user })
+        AsyncStorage.getItem('user_id')
+            .then(id => {
+                console.log('STORED ID', id)
+                return axios.post(`${config.BASE_URL}/api/get_messages`, { user_id: id })
+            })
             .then(resp => {
-                // console.log(resp.data.data)
+                console.log("RESULT", resp.data)
                 this.setState({ 
                     messages: resp.data.data,
                     showLoading: false
-                 })
+                })
             })
             .catch(err => {
                 console.log(err)

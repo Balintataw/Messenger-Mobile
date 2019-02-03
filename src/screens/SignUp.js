@@ -9,29 +9,21 @@ import {
 import { Auth } from 'aws-amplify';
 import styles from './styles';
 
-import { Logout } from '../components/Logout';
-
 const initialState = {
   username: '', password: '', email: '', phone_number: '', authenticationCode: '', showConfirmationForm: false
 }
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
     state = initialState
     onChangeText = (key, val) => {
         this.setState({ [key]: val })
     }
-    createUserId = () => {
-        var r = (new Date()).getTime().toString(16) + 
-            Math.random().toString(16).substring(2) + "0".repeat(16);
-        return 'user-' + r.substr(0,8) + '-' + r.substr(8,4) + '-4000-8' + 
-            r.substr(12,3) + '-' + r.substr(15,12);
-        }
     signUp = async () => {
         const { username, password, email } = this.state
         try {
-            const id = this.createUserId();
-            const success = await Auth.signUp({ username, id, password, attributes: { email }})
-            console.log('user successfully signed up!: ', success)
+            const success = await Auth.signUp({ username, password, attributes: { email }});
+            console.log('user successfully signed up!: ', success);
+;
             this.setState({ showConfirmationForm: true })
         } catch (err) {
             console.log('error signing up: ', err)
@@ -42,6 +34,9 @@ export default class SignUp extends React.Component {
         try {
             await Auth.confirmSignUp(username, authenticationCode)
             alert('User signed up successfully!')
+            const sessionUser = await Auth.currentUserInfo();
+            this.props.setUser(sessionUser);
+            await AsyncStorage.setItem('user_id', sessionUser.id)
             this.setState({ ...initialState })
             this.props.navigation.navigate('Home');
         } catch (err) {
@@ -111,3 +106,5 @@ export default class SignUp extends React.Component {
         )
     }
 };
+
+export default SignUp;

@@ -8,65 +8,20 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/get_messages', function(req, res, next) {
-    console.log('REQUEST', req.body)
-    const messages = [
-        {
-            toUser: 'us-west-2:938ff5c2-550d-48c7-90ef-ffaf9c11d762',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'us-west-2:938ff5c2-550d-48c7-90ef-ffaf9c11d762',
-            fromUser: 'Admin',
-            message: 'Youre banned',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-        {
-            toUser: 'Biff',
-            fromUser: 'Siopao',
-            message: 'Hey Biff',
-            dateTime: new Date()
-        },
-    ].filter(message => {
-        return message.toUser == req.body.user.id
-    });
-    
-    res.json({
-        status: 'success',
-        data: messages
-    })
+router.post('/get_messages', async (req, res, next) => {
+    console.log('USER_ID GOING IN', req.body.user_id)
+    const user_id = req.body.user_id;
+    let messages = [];
+    try {
+        messages = await Messages.getUserMessages(user_id)
+        console.log("MESSAGES", messages)
+        res.json({
+            status: 'success',
+            data: messages
+        })
+    } catch(err) {
+        console.log("ERR", err)
+    }
 })
 
 module.exports = router;

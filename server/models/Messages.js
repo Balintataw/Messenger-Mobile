@@ -15,6 +15,18 @@ const addMessage = (message) => {
     )
 };
 
+const getUserMessages = (user_id) => {
+    return (
+        db  
+        .table(dbKey)
+        .where({send_to: user_id})
+        .then(messages => {
+            return messages;
+        })
+    )
+}
+
 module.exports = {
-    addMessage
+    addMessage,
+    getUserMessages
 }

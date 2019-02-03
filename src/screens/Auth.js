@@ -7,6 +7,7 @@ import {
   Button,
   AsyncStorage
 } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
 
@@ -36,6 +37,7 @@ class Authentication extends React.Component {
             console.log('user successfully signed in!', user)
             const sessionUser = await Auth.currentUserInfo();
             this.props.setUser(sessionUser);
+            await AsyncStorage.setItem('user_id', sessionUser.id)
             await AsyncStorage.setItem(config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
             // const token = await AsyncStorage.getItem(config.USER_TOKEN)
             this.props.navigation.navigate('Home');
@@ -69,7 +71,7 @@ class Authentication extends React.Component {
                     placeholder='Username'
                     autoCapitalize="none"
                     autoCorrect={false}
-                    placeholderTextColor='$primary'
+                    placeholderTextColor={EStyleSheet.value('$primary')}
                     onChangeText={val => this.onChangeText('username', val)}
                 />
                 <TextInput
@@ -77,7 +79,7 @@ class Authentication extends React.Component {
                     placeholder='Password'
                     autoCapitalize="none"
                     secureTextEntry={true}
-                    placeholderTextColor='$primary'
+                    placeholderTextColor={EStyleSheet.value('$primary')}
                     onChangeText={val => this.onChangeText('password', val)}
                 />
                 <View style={styles.loginButtonsWrapper}>
