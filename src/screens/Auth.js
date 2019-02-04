@@ -10,10 +10,12 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
+import { BASE_URL } from 'react-native-dotenv'
 
 import { setUser } from '../actions/users';
 import config from '../config';
 import styles from './styles';
+import axios from 'axios';
 
 class Authentication extends React.Component {
     state = {
@@ -24,8 +26,18 @@ class Authentication extends React.Component {
         showConfirmationForm: false
     }
     componentDidMount = async () => {
+        console.log("BASE_URL", BASE_URL)
         // const token = await AsyncStorage.getItem(config.USER_TOKEN)
         // alert('still got ya ' + token) 
+
+        // test a file upload, needs to create File instance
+        // axios.post(`${BASE_URL}/api/image_upload`, {'image': '../assets/biff.jpg'})
+        // .then(resp => {
+        //     console.log('RESP', resp)
+        // })
+        // .catch(err => {
+        //     'ERR', err
+        // })
     }
     onChangeText = (key, value) => {
         this.setState({ [key]: value })

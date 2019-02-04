@@ -21,10 +21,11 @@ export default EStyleSheet.create({
         alignItems: 'center'
     },
     listContainer: {
-        // height: 100+'%',
         width: screenWidth,
         display: 'flex',
         flex: 1,
+        backgroundColor: 'rgb(243,243,243)',
+        marginTop: 5,
         // justifyContent: 'center',
         // alignItems: 'center'
     },

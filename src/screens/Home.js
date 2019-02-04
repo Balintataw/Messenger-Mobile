@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { Message } from '../components/Message';
+import { CameraRoll }  from '../components/Camera';
 
 import config from '../config';
 import styles from './styles';
@@ -42,6 +43,8 @@ class Home extends Component {
                         return <Message key={i} last={last} {...message}/>
                     }) : <Text>No Messages</Text>
                 }
+                {/* Camera loads properly, need button activation and link to aws s3 shit currently in Auth.js mount hook */}
+                {/* <CameraRoll /> */}
             </View>
         )
     }
