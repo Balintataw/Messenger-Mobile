@@ -2,7 +2,8 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 
-import AuthLoadingScreen from '../screens/AuthLoadingScreen'
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import Message           from '../screens/Message';
 import SignUp            from '../screens/SignUp';
 import Home              from '../screens/Home';
 import Auth              from '../screens/Auth';
@@ -19,9 +20,18 @@ const AppStack = createStackNavigator(
                 // header: () => null,
                     // headerTitle: navigation.state.params.title
                 // headerTitle: 'Home'
-                headerTitle: <Header title="Logout" />,
+                headerTitle: <Header title="Home" />,
             })
         },
+        Message: {
+            screen: Message,
+            navigationOptions: ({navigation}) => ({
+                // header: () => null,
+                    // headerTitle: navigation.state.params.title
+                // headerTitle: 'Home'
+                headerTitle: <Header title="Message name?" />,
+            })
+        }
     }, 
     {
         mode: 'modal',
@@ -35,7 +45,8 @@ const AppStack = createStackNavigator(
             headerStyle: {
                backgroundColor: '#F4511E',
         //        marginTop: StatusBar.currentHeight
-            }
+            },
+            headerTitleStyle: 'bold'
         }
     }
 )
@@ -60,8 +71,8 @@ const AuthStack = createStackNavigator(
             mode: 'modal',
             // headerMode: 'none',
             headerStyle: {
-               backgroundColor: '#F4511E',
-            }
+            //    backgroundColor: '#F4511E',
+            },
         }
     }
 )
@@ -82,12 +93,14 @@ const AppNavigator = createSwitchNavigator(
         initialRouteName: 'AuthLoading',
         // cardStyle: { paddingTop: StatusBar.currentHeight },
         defaultNavigationOptions: {
-            headerTitleStyle: {
-                flex: 1,
-                // textAlign: 'left'
-            },
+            // headerTitleStyle: {
+            //     flex: 1,
+            //     fontWeight: 'bold',
+            //     fontSize: 20,
+            //     // textAlign: 'left'
+            // },
             headerStyle: {
-               backgroundColor: '#F4511E',
+            //    backgroundColor: '#F4511E',
             }
         }
     }

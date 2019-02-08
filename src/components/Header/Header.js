@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { Logout } from '../Logout';
 
@@ -9,6 +9,7 @@ class Header extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text style={styles.text}>{this.props.title}</Text>
                 <Logout title={this.props.title}/>
             </View>
         );

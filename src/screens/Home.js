@@ -31,9 +31,6 @@ class Home extends Component {
                 this.setState({ showLoading: false })
             })
     };
-    handleMessagePress = (msg) => {
-        alert(msg._id)
-    };
     render() {
         const { messages } = this.state
         return (
@@ -42,7 +39,7 @@ class Home extends Component {
                 <FlatList 
                     data={messages}
                     keyExtractor={item => item._id+'jd'} 
-                    renderItem={({item}) => <Message messagePress={() => this.handleMessagePress(item)} {...item}/>}
+                    renderItem={({item}) => <Message {...item}/>}
                     ListEmptyComponent={<Text>No Messages</Text>}
                 />
                 {/* Camera loads properly, need button activation and link to aws s3 shit currently in Auth.js mount hook */}

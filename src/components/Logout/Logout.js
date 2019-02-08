@@ -23,11 +23,11 @@ class Logout extends React.Component {
     }
     render() {
         return (
-            <View style={styles.container}>
-                <TouchableOpacity onPress={this.logout}>
-                    <Text>{this.props.title}</Text>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={this.logout}>
+                <View style={styles.container}>
+                    <Text>Logout</Text>
+                </View>
+            </TouchableOpacity>
         )
     }
 };

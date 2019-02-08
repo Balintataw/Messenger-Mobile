@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import moment from 'moment';
 
@@ -7,7 +8,10 @@ import styles from './styles'
 
 const Message = props => {
     return (
-        <TouchableOpacity activeOpacity={0.5} onPress={props.messagePress} style={styles.message}>
+        <TouchableOpacity 
+            activeOpacity={0.7} 
+            onPress={() => this.props.navigation.navigate('Message')} 
+            style={styles.message}>
             <View>
                 <View style={styles.topRow}>
                     <View style={styles.topRowLeft}>
@@ -26,4 +30,4 @@ const Message = props => {
     )
 };
 
-export default Message;
+export default withNavigation(Message);
