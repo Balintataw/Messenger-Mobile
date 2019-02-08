@@ -16,9 +16,31 @@ export default EStyleSheet.create({
     },
     topRow: {
         flexDirection: 'row',        
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 15,
     },
     bottomRow: {
         flexDirection: 'row',        
+    },
+    topRowLeft: {
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    topRowRight: {
+        justifyContent: 'flex-end',
+    },
+    image: {
+        borderRadius: 50,
+        height: 50,
+        width: 50
+    },
+    username: {
+        marginLeft: 8,
+        fontSize: 18,
+    },
+    date: {
+        color: "rgb(180,180,180)" 
     }
-
 });

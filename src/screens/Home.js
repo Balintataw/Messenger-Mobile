@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator, AsyncStorage } from 'react-native';
+import { View, Text, ActivityIndicator, AsyncStorage, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -17,7 +17,6 @@ class Home extends Component {
     componentDidMount = () => {
         AsyncStorage.getItem('user_id')
             .then(id => {
-                console.log('STORED ID', id)
                 return axios.post(`${config.BASE_URL}/api/get_messages`, { user_id: id })
             })
             .then(resp => {
@@ -31,18 +30,21 @@ class Home extends Component {
                 console.log(err)
                 this.setState({ showLoading: false })
             })
-    }
+    };
+    handleMessagePress = (msg) => {
+        alert(msg._id)
+    };
     render() {
         const { messages } = this.state
         return (
             <View style={styles.listContainer}>
                 {(this.state.showLoading) ? <ActivityIndicator animating size="large"/> : null }
-                {messages.length > 0 ? 
-                    messages.map((message, i) => {
-                        const last = i == (messages.length - 1);
-                        return <Message key={i} last={last} {...message}/>
-                    }) : <Text>No Messages</Text>
-                }
+                <FlatList 
+                    data={messages}
+                    keyExtractor={item => item._id+'jd'} 
+                    renderItem={({item}) => <Message messagePress={() => this.handleMessagePress(item)} {...item}/>}
+                    ListEmptyComponent={<Text>No Messages</Text>}
+                />
                 {/* Camera loads properly, need button activation and link to aws s3 shit currently in Auth.js mount hook */}
                 {/* <CameraRoll /> */}
             </View>
@@ -51,7 +53,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-    // console.log('STATE HOME', state)
     return {
         user: state.user.user
     }
