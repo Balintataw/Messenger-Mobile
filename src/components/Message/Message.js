@@ -1,33 +1,35 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 import moment from 'moment';
 
 import styles from './styles'
 
-const Message = props => {
-    return (
-        <TouchableOpacity 
-            activeOpacity={0.7} 
-            onPress={() => this.props.navigation.navigate('Message')} 
-            style={styles.message}>
-            <View>
-                <View style={styles.topRow}>
-                    <View style={styles.topRowLeft}>
-                        <Image style={styles.image} source={{uri:'http://placekitten.com/g/200/200'}} />
-                        <Text style={styles.username}>{props.sent_from}</Text>
+class Message extends React.Component {
+    render() {
+        return (
+            <TouchableOpacity 
+                activeOpacity={0.7} 
+                onPress={() => this.props.navigation.navigate('Conversation',{title: this.props.sent_from, sent_from: this.props.sent_from})} 
+                style={styles.message}>
+                <View>
+                    <View style={styles.topRow}>
+                        <View style={styles.topRowLeft}>
+                            <Image style={styles.image} source={{uri:'http://placekitten.com/g/200/200'}} />
+                            <Text style={styles.username}>{this.props.sent_from}</Text>
+                        </View>
+                        <View style={styles.topRowRight}>
+                            <Text style={styles.date}>{moment(this.props.created_at).fromNow()}</Text>
+                        </View>
                     </View>
-                    <View style={styles.topRowRight}>
-                        <Text style={styles.date}>{moment(props.created_at).fromNow()}</Text>
+                    <View style={styles.bottomRow}>
+                        <Text>{this.props.content}</Text>
                     </View>
                 </View>
-                <View style={styles.bottomRow}>
-                    <Text>{props.content}</Text>
-                </View>
-            </View>
-        </TouchableOpacity>
-    )
+            </TouchableOpacity>
+        )
+    }
 };
 
 export default withNavigation(Message);

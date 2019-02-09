@@ -45,12 +45,13 @@ class Authentication extends React.Component {
     signIn = async () => {
         const { username, password } = this.state
         try {
-            const user = await Auth.signIn(username, password)
+            const user = await Auth.signIn(username, password) // AWS sign in
             console.log('user successfully signed in!', user)
             const sessionUser = await Auth.currentUserInfo();
             this.props.setUser(sessionUser);
             await AsyncStorage.setItem('user_id', sessionUser.id)
             await AsyncStorage.setItem(config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
+            // await axios.post('login')
             // const token = await AsyncStorage.getItem(config.USER_TOKEN)
             this.props.navigation.navigate('Home');
         // why require confirmation on signIn?

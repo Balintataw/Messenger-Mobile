@@ -35,13 +35,13 @@ class Home extends Component {
         const { messages } = this.state
         return (
             <View style={styles.listContainer}>
-                {(this.state.showLoading) ? <ActivityIndicator animating size="large"/> : null }
+                {(this.state.showLoading) ? <ActivityIndicator animating size="large"/> : 
                 <FlatList 
                     data={messages}
                     keyExtractor={item => item._id+'jd'} 
                     renderItem={({item}) => <Message {...item}/>}
                     ListEmptyComponent={<Text>No Messages</Text>}
-                />
+                />}
                 {/* Camera loads properly, need button activation and link to aws s3 shit currently in Auth.js mount hook */}
                 {/* <CameraRoll /> */}
             </View>

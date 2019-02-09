@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
-import Message           from '../screens/Message';
+import Conversation      from '../screens/Conversation';
 import SignUp            from '../screens/SignUp';
 import Home              from '../screens/Home';
 import Auth              from '../screens/Auth';
@@ -20,16 +20,16 @@ const AppStack = createStackNavigator(
                 // header: () => null,
                     // headerTitle: navigation.state.params.title
                 // headerTitle: 'Home'
-                headerTitle: <Header title="Home" />,
+                headerTitle: <Header title="Messages" />,
             })
         },
-        Message: {
-            screen: Message,
+        Conversation: {
+            screen: Conversation,
             navigationOptions: ({navigation}) => ({
                 // header: () => null,
                     // headerTitle: navigation.state.params.title
                 // headerTitle: 'Home'
-                headerTitle: <Header title="Message name?" />,
+                headerTitle: <Header title={navigation.state.params.title} />,
             })
         }
     }, 
@@ -62,7 +62,7 @@ const AuthStack = createStackNavigator(
         SignUp: {
             screen: SignUp,
             navigationOptions: ({ navigation }) => ({
-                headerTitle: navigation.state.params.title
+                headerTitle: <Header title={navigation.state.params.title} />
             }),
         }
     },
@@ -71,8 +71,9 @@ const AuthStack = createStackNavigator(
             mode: 'modal',
             // headerMode: 'none',
             headerStyle: {
-            //    backgroundColor: '#F4511E',
+               backgroundColor: '#F4511E',
             },
+            headerTitleStyle: 'bold'
         }
     }
 )

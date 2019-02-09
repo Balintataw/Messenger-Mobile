@@ -13,7 +13,6 @@ export default EStyleSheet.create({
         backgroundColor: '$primary'
     },
     container: {
-        // height: 100+'%',
         width: screenWidth,
         display: 'flex',
         flex: 1,
@@ -26,7 +25,7 @@ export default EStyleSheet.create({
         flex: 1,
         backgroundColor: 'rgb(243,243,243)',
         marginTop: 5,
-        // justifyContent: 'center',
+        justifyContent: 'center',
         // alignItems: 'center'
     },
     appName: {
