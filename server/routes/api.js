@@ -8,7 +8,7 @@ const Messages = require('../models/Messages');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('Welcom to AWS HELL');
+  res.send('Welcome to AWS HELL');
 });
 
 router.post('/get_messages', async (req, res, next) => {
@@ -23,6 +23,21 @@ router.post('/get_messages', async (req, res, next) => {
         })
     } catch(err) {
         console.log("ERR", err)
+    }
+});
+
+router.post('/get_conversation', async (req, res, next) => {
+    const user_id = req.body.user_id;
+    const talking_to_id = req.body.talking_to_id;
+    try {
+        const messages = await Messages.getConversation(user_id, talking_to_id)
+        console.log("MESSAGES", messages)
+        res.json({
+            status: 'success',
+            data: messages
+        })
+    } catch(err) {
+        console.log("ERR", err);
     }
 })
 

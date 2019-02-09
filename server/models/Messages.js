@@ -24,9 +24,21 @@ const getUserMessages = (user_id) => {
             return messages;
         })
     )
+};
+
+const getConversation = (user_id, talking_to_id) => {
+    return (
+        db
+        .table(dbKey)
+        .where({send_to:user_id, sent_from:talking_to_id})
+        .then(messages => {
+            return messages;
+        })
+    )
 }
 
 module.exports = {
     addMessage,
-    getUserMessages
+    getUserMessages,
+    getConversation,
 }
