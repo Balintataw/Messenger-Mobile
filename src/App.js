@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import Navigator from './routes/routes';
 
-import store from './store';
+import { store, persistor } from './store';
 
 import Amplify from 'aws-amplify'
 import AWSconfig from './aws-exports'
@@ -26,7 +27,9 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Navigator onNavigationStateChange={null} />
+                <PersistGate loading={null} persistor={persistor}>
+                    <Navigator onNavigationStateChange={null} />
+                </PersistGate>
             </Provider>
         )
     }

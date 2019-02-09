@@ -6,7 +6,8 @@ exports.up = function(knex, Promise) {
             table.increments("_id");
             table.string("user_id");
             table.string("username");
-            table.string("email").unique();
+            table.string("email");
+            // table.string("email").unique();
             table.timestamp("created_at").defaultTo(knex.fn.now());
         })
     )

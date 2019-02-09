@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import {
   View,
   Text,
-  Button,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -40,9 +40,9 @@ class SignUp extends React.Component {
             const user = await Auth.signIn(username, password) // AWS sign in
             console.log('user successfully signed in!', user)
             const sessionUser = await Auth.currentUserInfo(); // retrieve user id from AWS session
-            console.log("SESSIONUSER", sessionUser)
             await axios.post(`${config.BASE_URL}/create_user`, {username, email, user_id:sessionUser.id}); // throw it to sqlite3
             await AsyncStorage.setItem('user_id', sessionUser.id); // store user id probably not needed pending persistent redux setup
+            await AsyncStorage.setItem(config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
             alert('User signed up successfully!')
             this.setState({ ...initialState }); // clear state
             this.props.navigation.navigate('Home'); // bail out

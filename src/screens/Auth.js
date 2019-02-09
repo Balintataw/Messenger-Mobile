@@ -51,7 +51,7 @@ class Authentication extends React.Component {
             this.props.setUser(sessionUser);
             await AsyncStorage.setItem('user_id', sessionUser.id)
             await AsyncStorage.setItem(config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
-            // await axios.post('login')
+            // const me = await axios.get(`${config.BASE_URL}/me`)
             // const token = await AsyncStorage.getItem(config.USER_TOKEN)
             this.props.navigation.navigate('Home');
         // why require confirmation on signIn?

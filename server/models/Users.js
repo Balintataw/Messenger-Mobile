@@ -7,11 +7,14 @@ const createUser = (user) => {
         db
             .table(dbKey)
             .insert({
-                user_id: user_id,
+                user_id: user.user_id,
                 username: user.username,
                 email: user.email
             })
-            .then(docs => getDocumentById(docs[0]))
+            .then(docs => {
+                console.log("DOCS", docs[0])
+                // getDocumentById(docs[0])
+            })
     )
 };
 

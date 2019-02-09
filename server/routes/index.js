@@ -17,12 +17,15 @@ router.post('/create_user', async (req, res, next) => {
     // authenticationCode: '367613',
     // showConfirmationForm: true,
     // user_id: 'us-west-2:24849724-b83a-43cc-8b99-e802e8b42730' }
-
-    const response = await Users.createUser(req.body);
-    res.json({
-        status: 'success',
-        data: response
-    })
-})
+    try {
+        const response = await Users.createUser(req.body);
+        res.json({
+            status: 'success',
+            data: response
+        })
+    } catch (err) {
+        console.log("Error creating user record", err)
+    }
+});
 
 module.exports = router;

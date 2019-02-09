@@ -11,12 +11,24 @@ router.get('/', function(req, res, next) {
   res.send('Welcome to AWS HELL');
 });
 
+router.get('/me', async (req,res, next) => {
+    const user_id = req.body.user_id;
+    try {
+        const me = await Messages.getUserRecord(user_id);
+        res.json({
+            status: 'success',
+            data: me
+        })
+    } catch (err) {
+        console.log("ERROR GETTING ME", err)
+    }
+})
+
 router.post('/get_messages', async (req, res, next) => {
     const user_id = req.body.user_id;
     let messages = [];
     try {
-        messages = await Messages.getUserMessages(user_id)
-        console.log("MESSAGES", messages)
+        messages = await Messages.getUserMessages(user_id);
         res.json({
             status: 'success',
             data: messages
