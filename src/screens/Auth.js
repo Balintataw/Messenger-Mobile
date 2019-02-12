@@ -10,10 +10,9 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { connect } from 'react-redux';
 import { Auth } from 'aws-amplify';
-import { BASE_URL } from 'react-native-dotenv'
+import Config from 'react-native-config';
 
 import { setUser } from '../actions/users';
-import config from '../config';
 import styles from './styles';
 import axios from 'axios';
 
@@ -26,7 +25,7 @@ class Authentication extends React.Component {
         showConfirmationForm: false
     }
     componentDidMount = async () => {
-        console.log("BASE_URL", BASE_URL)
+        console.log("BASE_URL", Config.BASE_URL)
         // const token = await AsyncStorage.getItem(config.USER_TOKEN)
         // alert('still got ya ' + token) 
 
@@ -50,15 +49,15 @@ class Authentication extends React.Component {
             const sessionUser = await Auth.currentUserInfo();
             this.props.setUser(sessionUser);
             await AsyncStorage.setItem('user_id', sessionUser.id)
-            await AsyncStorage.setItem(config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
-            // const me = await axios.get(`${config.BASE_URL}/me`)
-            // const token = await AsyncStorage.getItem(config.USER_TOKEN)
+            await AsyncStorage.setItem(Config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
+            // const me = await axios.get(`${Config.BASE_URL}/me`)
+            // const token = await AsyncStorage.getItem(Config.USER_TOKEN)
             this.props.navigation.navigate('Home');
         // why require confirmation on signIn?
         // so redirect instead of confirm here
         // this.setState({ user, showConfirmationForm: true })
         } catch (err) {
-            alert("Sorry: \n" + err)
+            alert("Sorry: \n" + err.message)
             console.log('error:', err)
         }  
     }

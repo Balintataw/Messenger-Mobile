@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const upload = require('../services/multer');
 
-const singleUpload = upload.single('image')
 
 const Messages = require('../models/Messages');
 
@@ -39,11 +37,12 @@ router.post('/get_messages', async (req, res, next) => {
 });
 
 router.post('/get_conversation', async (req, res, next) => {
+    console.log("REQ>BODY", req.body)
     const user_id = req.body.user_id;
     const talking_to_id = req.body.talking_to_id;
     try {
         const messages = await Messages.getConversation(user_id, talking_to_id)
-        console.log("MESSAGES", messages)
+        console.log("Convo Response", messages)
         res.json({
             status: 'success',
             data: messages
@@ -51,16 +50,6 @@ router.post('/get_conversation', async (req, res, next) => {
     } catch(err) {
         console.log("ERR", err);
     }
-})
-
-router.post('/image_upload', function(req, res) {
-    console.log("RECEIVING IMAGE", req.body)
-    singleUpload(req, res, function(err, some) {
-        if (err) {
-            return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
-        }
-        return res.json({'imageUrl': req.file.location});
-    });
 })
 
 module.exports = router;

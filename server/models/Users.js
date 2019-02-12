@@ -12,7 +12,7 @@ const createUser = (user) => {
                 email: user.email
             })
             .then(docs => {
-                console.log("DOCS", docs[0])
+                console.log("DOCS", docs)
                 // getDocumentById(docs[0])
             })
     )

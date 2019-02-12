@@ -13,8 +13,8 @@ export default EStyleSheet.create({
         backgroundColor: '$primary'
     },
     container: {
-        width: screenWidth,
-        display: 'flex',
+        // width: screenWidth,
+        // display: 'flex',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

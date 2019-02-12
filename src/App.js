@@ -2,14 +2,28 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Config from 'react-native-config';
 
 import Navigator from './routes/routes';
 
 import { store, persistor } from './store';
 
-import Amplify from 'aws-amplify'
-import AWSconfig from './aws-exports'
-Amplify.configure(AWSconfig)
+import Amplify, { Analytics, Storage } from 'aws-amplify';
+
+Amplify.configure({
+    Auth: {
+        identityPoolId: Config.AWS_IDENTITY_POOL_ID,
+        region: Config.AWS_REGION,
+        userPoolId: Config.AWS_USER_POOL_ID,
+        userPoolWebClientId: Config.AWS_USER_POOL_WEB_CLIENT_ID
+    },
+    Storage: {
+        AWSS3: {
+            bucket: Config.AWS_BUCKET,
+            region: Config.AWS_REGION
+        }
+    }
+})
 
 EStyleSheet.build({
     $primary: '#4F6D7A',

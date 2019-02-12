@@ -1,8 +1,18 @@
-const awsConfig = {
-  identityPoolId: 'us-west-2:74032d68-0a17-40d5-9329-6df4e304296c',
-  region: 'us-west-2',
-  userPoolId: 'us-west-2_k1w6lB9fF',
-  userPoolWebClientId: '33d13u3bjqhp3ilcm5tdoavrb4'
-}
+// import Config from 'react-native-config';
 
-export default awsConfig;
+// const awsConfig = {
+//     Auth: {
+//         identityPoolId: Config.AWS_IDENTITY_POOL_ID,
+//         region: Config.AWS_REGION,
+//         userPoolId: Config.AWS_USER_POOL_ID,
+//         userPoolWebClientId: Config.USER_POOL_WEB_CLIENT_ID
+//     },
+//     Storage: {
+//         AWSS3: {
+//             bucket: Config.AWS_BUCKET,
+//             region: Config.AWS_REGION
+//         }
+//     }
+// }
+
+// export default awsConfig;

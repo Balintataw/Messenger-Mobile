@@ -91,7 +91,34 @@
 					"openIdRolePolicy": "messagingapp_openid_pass_role_policy",
 					"openIdLambdaIAMPolicy": "messagingapp_openid_lambda_iam_policy",
 					"openIdLogPolicy": "messagingapp_openid_lambda_log_policy",
-					"authSelections": "identityPoolOnly",
+					"userPoolName": "cognitoe1e351cf_userpool_471a9775",
+					"autoVerifiedAttributes": "email",
+					"mfaConfiguration": "OFF",
+					"mfaTypes": "SMS Text Message",
+					"roleName": "cognitoe1e351cf_sns-role",
+					"roleExternalId": "cognitoe1e351cf_role_external_id",
+					"policyName": "cognitoe1e351cf-sns-policy",
+					"smsAuthenticationMessage": "Your authentication code is {####}",
+					"smsVerificationMessage": "Your verification code is {####}",
+					"emailVerificationSubject": "Your verification code",
+					"emailVerificationMessage": "Your verification code is {####}",
+					"defaultPasswordPolicy": false,
+					"passwordPolicyMinLength": 8,
+					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
+					"requiredAttributes": "email",
+					"userpoolClientName": "cognitoe1e351cf_app_client",
+					"userpoolClientGenerateSecret": true,
+					"userpoolClientRefreshTokenValidity": 30,
+					"userpoolClientReadAttributes": "email",
+					"mfaLambdaRole": "cognitoe1e351cf_totp_lambda_role",
+					"mfaLambdaLogPolicy": "cognitoe1e351cf_totp_lambda_log_policy",
+					"mfaPassRolePolicy": "cognitoe1e351cf_totp_pass_role_policy",
+					"mfaLambdaIAMPolicy": "cognitoe1e351cf_totp_lambda_iam_policy",
+					"userpoolClientLambdaRole": "cognitoe1e351cf_userpoolclient_lambda_role",
+					"userpoolClientLogPolicy": "cognitoe1e351cf_userpoolclient_lambda_log_policy",
+					"userpoolClientLambdaPolicy": "cognitoe1e351cf_userpoolclient_lambda_iam_policy",
+					"userpoolClientSetAttributes": false,
+					"authSelections": "identityPoolAndUserPool",
 					"resourceName": "cognitoe1e351cf",
 					"unAuthRoleName": "messagingpp-20190202095441-unauthRole",
 					"authRoleName": "messagingpp-20190202095441-authRole",
@@ -114,6 +141,21 @@
 					"authRoleName": "messagingpp-20190202095441-authRole",
 					"unauthRoleName": "messagingpp-20190202095441-unauthRole",
 					"IAMPrefix": "049306620118"
+				}
+			}
+		},
+		"storagemedia": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/messagingpp-20190202095441-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"Parameters": {
+					"bucketName": "messagingpp-20190202095441-deployment",
+					"authPolicyName": "s3_amplify_b719c937",
+					"unauthPolicyName": "s3_amplify_b719c937",
+					"authRoleName": "messagingpp-20190202095441-authRole",
+					"unauthRoleName": "messagingpp-20190202095441-unauthRole",
+					"authPermissions": "rw",
+					"unauthPermissions": "rw"
 				}
 			}
 		}

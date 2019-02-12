@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // required for uploading images to amaon s3 bucket
-const multer = require('multer');
-const multerS3 = require('multer-s3');
+// const multer = require('multer');
+// const multerS3 = require('multer-s3');
 // const aws = require('aws-sdk');
-var AWS = require('aws-sdk/dist/aws-sdk-react-native');
+// var AWS = require('aws-sdk/dist/aws-sdk-react-native');
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
@@ -28,11 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     // Your SECRET ACCESS KEY from AWS should go here,
 //     // Never share it!
 //     // Setup Env Variable, e.g: process.env.SECRET_ACCESS_KEY
-//     secretAccessKey: "ab7786ad6",
+//     // secretAccessKey: "ab7786ad6",
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 //     // Not working key, Your ACCESS KEY ID from AWS should go here,
 //     // Never share it!
-//     // Setup Env Variable, e.g: process.env.ACCESS_KEY_ID
-//     accessKeyId: "ab7786ad6",
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//     // accessKeyId: "ab7786ad6",
 //     region: 'us-east-1' // region of your bucket
 // });
 

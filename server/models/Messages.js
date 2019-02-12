@@ -31,6 +31,7 @@ const getConversation = (user_id, talking_to_id) => {
         db
         .table(dbKey)
         .where({send_to:user_id, sent_from:talking_to_id})
+        .select('*')
         .then(messages => {
             return messages;
         })
