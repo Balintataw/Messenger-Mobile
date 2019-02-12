@@ -15,7 +15,7 @@ Amplify.configure({
         identityPoolId: Config.AWS_IDENTITY_POOL_ID,
         region: Config.AWS_REGION,
         userPoolId: Config.AWS_USER_POOL_ID,
-        userPoolWebClientId: Config.AWS_USER_POOL_WEB_CLIENT_ID
+        userPoolWebClientId: Config.AWS_USER_POOL_WEB_CLIENT_ID,
     },
     Storage: {
         AWSS3: {

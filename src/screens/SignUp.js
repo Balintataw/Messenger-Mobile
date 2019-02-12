@@ -15,8 +15,6 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
-// import Buffer from 'buffer'; // for rnFetchBlob
-import * as mime from 'react-native-mime-types';
 import { RNCamera } from 'react-native-camera';
 import Config from 'react-native-config';
 var Buffer = require('buffer/').Buffer
@@ -28,7 +26,15 @@ import styles from './styles';
 import axios from 'axios';
 
 const initialState = {
-  username: '', password: '', email: '', phone_number: '', authenticationCode: '', showConfirmationForm: false, photo: null
+    username: '',
+    name: '',
+    password: '', 
+    email: '', 
+    address: '', 
+    phone_number: '', 
+    authenticationCode: '', 
+    showConfirmationForm: false, 
+    picture: null
 }
 
 class SignUp extends React.Component {
@@ -39,7 +45,6 @@ class SignUp extends React.Component {
     readFile(filePath) {
         return RNFetchBlob.fs.readFile(filePath, 'base64').then(data => new Buffer(data, 'base64'));
     }
-
     handleChangePhoto = async () => {
         const options = {
             // allowsEditing: true,
@@ -53,7 +58,7 @@ class SignUp extends React.Component {
                 console.log('ImagePicker error: ', response.error);
             }
             else {
-                this.setState({ photo: response })
+                this.setState({ picture: response })
             }
         })
     }
@@ -66,13 +71,40 @@ class SignUp extends React.Component {
     }
 
     signUp = async () => {
-        const { username, password, email } = this.state;
-        try {
-            const success = await Auth.signUp({ username, password, attributes: { email }});
-            console.log('user successfully signed up!: ', success);
-            this.setState({ showConfirmationForm: true });
-        } catch (err) {
-            console.log('error signing up: ', err);
+        let { username, password, email, address, phone_number, name, picture } = this.state;
+        if (!picture) {
+            // pic can't be uploaded with null value, requireing for now
+            alert("Image Required")
+            return
+        } else {
+            // upload image and return key to add to user creation            
+            const buffer = await this.readFile(picture.path);
+            Storage.put(picture.fileName, buffer, { level: 'public', contentType: 'image/png' })
+            .then(resp => {
+                console.log('successfully saved to bucket', resp);
+                picture = `${Config.AWS_BUCKET_BASE_URL}${resp.key}`;
+                console.log("PICTURE", picture)
+                    // create user in pool
+                return Auth.signUp({ 
+                        username, 
+                        password, 
+                        attributes: { 
+                            name, 
+                            picture,
+                            phone_number,
+                            address, 
+                            email,
+                            updated_at: Math.floor(Date.now()).toString()
+                        }
+                    })
+            })
+            .then(success => {
+                console.log('user successfully signed up!: ', success);
+                this.setState({ showConfirmationForm: true });
+            })
+            .catch(err => {
+                console.log('error signing up: ', err);
+            })
         } 
     }
     confirmSignUp = async () => {
@@ -81,28 +113,17 @@ class SignUp extends React.Component {
             await Auth.confirmSignUp(username, authenticationCode) // AWS confirm code
             const user = await Auth.signIn(username, password) // AWS sign in
             console.log('user successfully signed in!', user)
-            const sessionUser = await Auth.currentUserInfo(); // retrieve user id from AWS session
+            const sessionUser = await Auth.currentAuthenticatedUser() // retrieve user id from AWS session
+            console.log("SESSION_USER ID", sessionUser)
 
-            // this.putFileInS3(this.state.photo.path, this.state.photo.fileName)
-            // this.readFile(this.state.photo.path).then(buffer => {
-            //     Storage.put(this.state.photo.fileName, buffer, { level: 'public', contentType: 'image/png' })
-            //         .then((resp) => {console.log('successfully saved to bucket', resp);})
-            //         .catch(e => { console.log(e);});
-            // })
-            const buffer = await this.readFile(this.state.photo.path);
-            const uploadResponse = Storage.put(this.state.photo.fileName, buffer, { level: 'public', contentType: 'image/png' });
-            console.log('successfully saved to bucket', uploadResponse);
-            
+            // TODO remove sqlite in place of rds or something amazon
             // add s3 response url to create user
             await axios.post(`${Config.BASE_URL}/create_user`, 
             {username, email, user_id:sessionUser.id }); // throw it to sqlite3
 
-            // const image = await Storage.put('example.png', this.createFormData(photo), { contentType: 'image/png' })
-            // console.log("IMAGE SUCCESS", image)
-
-            await AsyncStorage.setItem('user_id', sessionUser.id); // store user id probably not needed pending persistent redux setup
-            await AsyncStorage.setItem(Config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
-            alert('User signed up successfully!')
+            await AsyncStorage.setItem('user_id', sessionUser.attributes.sub); // store user id probably not needed pending persistent redux setup
+            // await AsyncStorage.setItem(Config.USER_TOKEN, user.signInUserSession.accessToken.jwtToken)
+            alert('Signed up successfully!')
             this.setState({ ...initialState }); // clear state
             this.props.navigation.navigate('Home'); // bail out
         } catch (err) {
@@ -111,16 +132,16 @@ class SignUp extends React.Component {
     }
     
     render() {
-        const { photo } = this.state;
+        const { picture } = this.state;
         return (
         // <KeyboardAvoidingView style={styles.container} behavior="padding">
         <View style={styles.container}>
             {
             !this.state.showConfirmationForm && (
                 <Fragment>
-                    {photo && (
+                    {picture && (
                         <Image
-                            source={{ uri: photo.uri }}
+                            source={{ uri: picture.uri }}
                             style={{ width: 100, height: 100, borderRadius: 50 }}
                         />
                     )}

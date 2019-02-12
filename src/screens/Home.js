@@ -19,30 +19,19 @@ class Home extends Component {
         s3ImageKey: ''
     };
     componentDidMount = async () => {
-        Storage.get('https://s3-us-west-2.amazonaws.com/messagingpp-20190202095441-deployment/public/biff.jpg', { level: 'protected' })
-            .then(result => {
-                this.setState({s3ImageKey: result})
-                console.log("FOUND IMAGE", this.state.s3ImageKey)
-            })
-            .catch(err => console.log(err));
-
-        // const credentials = await Auth.currentCredentials();
-        // console.log("CREDS", credentials)
-        AsyncStorage.getItem('user_id')
-            .then(id => {
-                return axios.post(`${Config.BASE_URL}/api/get_messages`, { user_id: id })
-            })
-            .then(resp => {
-                console.log("RESULT", resp.data)
-                this.setState({ 
-                    messages: resp.data.data,
-                    showLoading: false
-                })
-            })
-            .catch(err => {
-                console.log(err)
-                this.setState({ showLoading: false })
-            })
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            this.setState({s3ImageKey: user.attributes.picture});
+            let user_id = user.attributes.sub;
+            const messages = await axios.post(`${Config.BASE_URL}/api/get_messages`, { user_id: user_id });
+            console.log("MESSAGES", messages.data.data)
+            this.setState({ messages: messages.data.data });
+        } catch (err) {
+            alert(err);
+            console.log(err);
+        } finally {
+            this.setState({ showLoading: false });
+        }
     };
     render() {
         const { messages } = this.state
@@ -51,9 +40,6 @@ class Home extends Component {
                 {(this.state.showLoading) ? 
                     <ActivityIndicator animating size="large"/> : 
                     <View style={styles.listContainer}>
-                        <Image 
-                            style={{height:30, width:30}} 
-                            source={{uri:"https://s3-us-west-2.amazonaws.com/messagingpp-20190202095441-deployment/public/biff.jpg"}} />
                         <Image 
                             style={{height:30, width:30}} 
                             source={{uri:this.state.s3ImageKey}} />
