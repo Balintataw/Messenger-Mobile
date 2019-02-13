@@ -1,0 +1,13 @@
+{
+    "bucketName": "devmessenges",
+    "authPolicyName": "s3_amplify_ff9585cf",
+    "unauthPolicyName": "s3_amplify_ff9585cf",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authPermissions": "rw",
+    "unauthPermissions": "rw"
+}

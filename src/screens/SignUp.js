@@ -30,7 +30,6 @@ const initialState = {
     name: '',
     password: '', 
     email: '', 
-    address: '', 
     phone_number: '', 
     authenticationCode: '', 
     showConfirmationForm: false, 
@@ -71,7 +70,8 @@ class SignUp extends React.Component {
     }
 
     signUp = async () => {
-        let { username, password, email, address, phone_number, name, picture } = this.state;
+        console.log("CONFIG", Config)
+        let { username, password, email, phone_number, name, picture } = this.state;
         if (!picture) {
             // pic can't be uploaded with null value, requireing for now
             alert("Image Required")
@@ -85,16 +85,16 @@ class SignUp extends React.Component {
                 picture = `${Config.AWS_BUCKET_BASE_URL}${resp.key}`;
                 console.log("PICTURE", picture)
                     // create user in pool
+                    console.log(this.state, picture)
                 return Auth.signUp({ 
                         username, 
                         password, 
                         attributes: { 
-                            name, 
+                            // name, 
                             picture,
-                            phone_number,
-                            address, 
+                            // phone_number,
                             email,
-                            updated_at: Math.floor(Date.now()).toString()
+                            // updated_at: Math.floor(Date.now()).toString()
                         }
                     })
             })

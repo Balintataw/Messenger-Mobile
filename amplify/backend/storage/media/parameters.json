@@ -1,9 +1,0 @@
-{
-    "bucketName": "messagingpp-20190202095441-deployment",
-    "authPolicyName": "s3_amplify_b719c937",
-    "unauthPolicyName": "s3_amplify_b719c937",
-    "authRoleName": "messagingpp-20190202095441-authRole",
-    "unauthRoleName": "messagingpp-20190202095441-unauthRole",
-    "authPermissions": "rw",
-    "unauthPermissions": "rw"
-}

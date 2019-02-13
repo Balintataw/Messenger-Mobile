@@ -5,6 +5,7 @@ import Config from 'react-native-config';
 import axios from 'axios';
 
 import { Message } from '../components/Message';
+import NewMessage from './NewMessage';
 import { CameraRoll }  from '../components/Camera';
 import { Auth, Storage } from 'aws-amplify';
 import { S3Image, S3Album } from 'aws-amplify-react-native';
@@ -47,7 +48,7 @@ class Home extends Component {
                             data={messages}
                             keyExtractor={item => item._id+'jd'} 
                             renderItem={({item}) => <Message {...item}/>}
-                            ListEmptyComponent={<Text>No Messages</Text>}
+                            ListEmptyComponent={<NewMessage />}
                         />
                     </View>
                 }

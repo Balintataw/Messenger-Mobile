@@ -1,0 +1,14 @@
+{
+	"auth": {
+		"cognitoe071fee8": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"storage": {
+		"devmessage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

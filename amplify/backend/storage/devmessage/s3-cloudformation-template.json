@@ -22,9 +22,21 @@
 		},
 		"authPermissions": {
 			"Type": "String"
-		}
+		},
+		"env": {
+            "Type": "String"
+        }
+
 	},
 	"Conditions": {
+		"ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        },
 		"EnableUnauthReadWrite": {
 			"Fn::Equals": [
 				{
@@ -80,8 +92,27 @@
 			"DeletionPolicy" : "Retain",
 			"Properties": {
 				"BucketName": {
-					"Ref": "bucketName"
-				},
+                    "Fn::If": [
+                        "ShouldNotCreateEnvResources",
+                        {
+                            "Ref": "bucketName"
+                        },
+                        {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "bucketName"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "env"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
 				"CorsConfiguration": {
 					"CorsRules": [
 						{
@@ -101,8 +132,7 @@
 							"ExposedHeaders": [
 								"x-amz-server-side-encryption",
 								"x-amz-request-id",
-								"x-amz-id-2",
-								"ETag"
+								"x-amz-id-2"
 							],
 							"Id": "S3CORSRuleId1",
 							"MaxAge": "3000"

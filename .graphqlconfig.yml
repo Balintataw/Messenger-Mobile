@@ -1,0 +1,18 @@
+projects:
+  Messenger AppSync App:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        graphQLApiId: wd6pibnenbbwdoemggivpjstzy
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        region: us-west-2
+        maxDepth: 2
+      endpoints:
+        prod: >-
+          https://lsmvb6k4rvgjniwanekjroq3ma.appsync-api.us-west-2.amazonaws.com/graphql

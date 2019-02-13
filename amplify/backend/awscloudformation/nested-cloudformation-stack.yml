@@ -78,26 +78,26 @@
 				}
 			}
 		},
-		"authcognitoe1e351cf": {
+		"authcognitoe071fee8": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/messagingpp-20190202095441-deployment/amplify-cfn-templates/auth/cognitoe1e351cf-cloudformation-template.yml",
+				"TemplateURL": "https://s3.amazonaws.com/msgapp-20190213085537-deployment/amplify-cfn-templates/auth/cognitoe071fee8-cloudformation-template.yml",
 				"Parameters": {
-					"identityPoolName": "messagingapp_identitypool_082ee33e",
+					"identityPoolName": "cognitoe071fee8_identitypool_e071fee8",
 					"allowUnauthenticatedIdentities": true,
 					"thirdPartyAuth": false,
-					"lambdaLogPolicy": "messagingapp_lambda_log_policy",
-					"openIdLambdaRoleName": "messagingapp_openid_lambda_role",
-					"openIdRolePolicy": "messagingapp_openid_pass_role_policy",
-					"openIdLambdaIAMPolicy": "messagingapp_openid_lambda_iam_policy",
-					"openIdLogPolicy": "messagingapp_openid_lambda_log_policy",
-					"userPoolName": "cognitoe1e351cf_userpool_471a9775",
+					"lambdaLogPolicy": "cognitoe071fee8_lambda_log_policy",
+					"openIdLambdaRoleName": "cognitoe071fee8_openid_lambda_role",
+					"openIdRolePolicy": "cognitoe071fee8_openid_pass_role_policy",
+					"openIdLambdaIAMPolicy": "cognitoe071fee8_openid_lambda_iam_policy",
+					"openIdLogPolicy": "cognitoe071fee8_openid_lambda_log_policy",
+					"userPoolName": "cognitoe071fee8_userpool_e071fee8",
 					"autoVerifiedAttributes": "email",
 					"mfaConfiguration": "OFF",
 					"mfaTypes": "SMS Text Message",
-					"roleName": "cognitoe1e351cf_sns-role",
-					"roleExternalId": "cognitoe1e351cf_role_external_id",
-					"policyName": "cognitoe1e351cf-sns-policy",
+					"roleName": "cognitoe071fee8_sns-role",
+					"roleExternalId": "cognitoe071fee8_role_external_id",
+					"policyName": "cognitoe071fee8-sns-policy",
 					"smsAuthenticationMessage": "Your authentication code is {####}",
 					"smsVerificationMessage": "Your verification code is {####}",
 					"emailVerificationSubject": "Your verification code",
@@ -106,56 +106,60 @@
 					"passwordPolicyMinLength": 8,
 					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
 					"requiredAttributes": "email",
-					"userpoolClientName": "cognitoe1e351cf_app_client",
+					"userpoolClientName": "cognitoe071fee8_app_client",
 					"userpoolClientGenerateSecret": true,
 					"userpoolClientRefreshTokenValidity": 30,
 					"userpoolClientReadAttributes": "email",
-					"mfaLambdaRole": "cognitoe1e351cf_totp_lambda_role",
-					"mfaLambdaLogPolicy": "cognitoe1e351cf_totp_lambda_log_policy",
-					"mfaPassRolePolicy": "cognitoe1e351cf_totp_pass_role_policy",
-					"mfaLambdaIAMPolicy": "cognitoe1e351cf_totp_lambda_iam_policy",
-					"userpoolClientLambdaRole": "cognitoe1e351cf_userpoolclient_lambda_role",
-					"userpoolClientLogPolicy": "cognitoe1e351cf_userpoolclient_lambda_log_policy",
-					"userpoolClientLambdaPolicy": "cognitoe1e351cf_userpoolclient_lambda_iam_policy",
+					"mfaLambdaRole": "cognitoe071fee8_totp_lambda_role",
+					"mfaLambdaLogPolicy": "cognitoe071fee8_totp_lambda_log_policy",
+					"mfaPassRolePolicy": "cognitoe071fee8_totp_pass_role_policy",
+					"mfaLambdaIAMPolicy": "cognitoe071fee8_totp_lambda_iam_policy",
+					"userpoolClientLambdaRole": "cognitoe071fee8_userpoolclient_lambda_role",
+					"userpoolClientLogPolicy": "cognitoe071fee8_userpoolclient_lambda_log_policy",
+					"userpoolClientLambdaPolicy": "cognitoe071fee8_userpoolclient_lambda_iam_policy",
 					"userpoolClientSetAttributes": false,
+					"useDefault": "default",
+					"resourceName": "cognitoe071fee8",
 					"authSelections": "identityPoolAndUserPool",
-					"resourceName": "cognitoe1e351cf",
-					"unAuthRoleName": "messagingpp-20190202095441-unauthRole",
-					"authRoleName": "messagingpp-20190202095441-authRole",
-					"unAuthRoleArn": "arn:aws:iam::049306620118:role/messagingpp-20190202095441-unauthRole",
-					"authRoleArn": "arn:aws:iam::049306620118:role/messagingpp-20190202095441-authRole"
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"authRoleArn": {
+						"Fn::GetAtt": [
+							"AuthRole",
+							"Arn"
+						]
+					},
+					"unauthRoleArn": {
+						"Fn::GetAtt": [
+							"UnauthRole",
+							"Arn"
+						]
+					},
+					"env": "msgappvtwo"
 				}
 			}
 		},
-		"analyticsmessagingapp": {
+		"storagedevmessage": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/messagingpp-20190202095441-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/msgapp-20190213085537-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"Parameters": {
-					"appName": "messagingapp",
-					"roleName": "pinpointLambdaRoleda8d768b",
-					"cloudWatchPolicyName": "cloudWatchPolicyda8d768b",
-					"pinpointPolicyName": "pinpointPolicyda8d768b",
-					"authPolicyName": "pinpoint_amplify_da8d768b",
-					"unauthPolicyName": "pinpoint_amplify_da8d768b",
-					"authRoleName": "messagingpp-20190202095441-authRole",
-					"unauthRoleName": "messagingpp-20190202095441-unauthRole",
-					"IAMPrefix": "049306620118"
-				}
-			}
-		},
-		"storagemedia": {
-			"Type": "AWS::CloudFormation::Stack",
-			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/messagingpp-20190202095441-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
-				"Parameters": {
-					"bucketName": "messagingpp-20190202095441-deployment",
-					"authPolicyName": "s3_amplify_b719c937",
-					"unauthPolicyName": "s3_amplify_b719c937",
-					"authRoleName": "messagingpp-20190202095441-authRole",
-					"unauthRoleName": "messagingpp-20190202095441-unauthRole",
+					"bucketName": "devmessenges",
+					"authPolicyName": "s3_amplify_ff9585cf",
+					"unauthPolicyName": "s3_amplify_ff9585cf",
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
 					"authPermissions": "rw",
-					"unauthPermissions": "rw"
+					"unauthPermissions": "rw",
+					"env": "msgappvtwo"
 				}
 			}
 		}
